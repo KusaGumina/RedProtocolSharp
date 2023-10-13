@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>RedProtocolSharp</Title>
+        <Authors>Lilyltt</Authors>
+        <RepositoryUrl>https://github.com/Lilyltt/RedProtocolSharp</RepositoryUrl>
+        <RepositoryType>GitHub</RepositoryType>
+        <PackageReleaseNotes>初代版本</PackageReleaseNotes>
+        <Configurations>Release</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <Version>0.0.1</Version>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
+        <None Include="README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+</Project>

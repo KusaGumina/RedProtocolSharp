@@ -1,0 +1,12 @@
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\RedProtocolSharp.deps.json
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\RedProtocolSharp.dll
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\RedProtocolSharp.pdb
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\RedProtocolSharp.csproj.AssemblyReference.cache
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\RedProtocolSharp.GeneratedMSBuildEditorConfig.editorconfig
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\RedProtocolSharp.AssemblyInfoInputs.cache
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\RedProtocolSharp.AssemblyInfo.cs
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\RedProtocolSharp.csproj.CoreCompileInputs.cache
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\RedProtocolSharp.dll
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\refint\RedProtocolSharp.dll
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\RedProtocolSharp.pdb
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\ref\RedProtocolSharp.dll
