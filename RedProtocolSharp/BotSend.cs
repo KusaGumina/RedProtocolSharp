@@ -123,7 +123,6 @@ namespace RedProtocolSharp;
                     }
                     case replyHelper data:
                     {
-                        var sendUinInt = long.Parse(data.senderUin);
                         payload.elements.Add(new MsgType.Elements
                         {
                             elementType = 7,
@@ -131,8 +130,7 @@ namespace RedProtocolSharp;
                             {
                                 replayMsgSeq = data.replayMsgSeq,
                                 replyMsgId = data.replyMsgId,
-                                senderUin = sendUinInt,
-                                senderUinStr = sendUinInt
+                                senderUinStr = data.senderUin
                             }
                         });
                         break;
