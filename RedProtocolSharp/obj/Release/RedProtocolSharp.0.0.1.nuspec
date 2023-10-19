@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>RedProtocolSharp</id>
+    <version>0.0.1</version>
+    <title>RedProtocolSharp</title>
+    <authors>Lilyltt</authors>
+    <readme>README.md</readme>
+    <description>Package Description</description>
+    <releaseNotes>初代版本</releaseNotes>
+    <repository type="GitHub" url="https://github.com/Lilyltt/RedProtocolSharp" />
+    <dependencies>
+      <group targetFramework="net7.0">
+        <dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
+        <dependency id="WebSocketSharp" version="1.0.3-rc11" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\RedProtocolSharp.dll" target="lib\net7.0\RedProtocolSharp.dll" />
+    <file src="D:\RedProtocolSharp\RedProtocolSharp\README.md" target="\README.md" />
+  </files>
+</package>

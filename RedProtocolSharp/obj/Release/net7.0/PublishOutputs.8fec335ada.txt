@@ -1,0 +1,5 @@
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\RedProtocolSharp.dll
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\RedProtocolSharp.deps.json
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\RedProtocolSharp.pdb
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\Newtonsoft.Json.dll
+D:\LLisBot\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\websocket-sharp.dll
