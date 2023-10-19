@@ -12,7 +12,7 @@
         <PackageReleaseNotes>初代版本</PackageReleaseNotes>
         <Configurations>Release</Configurations>
         <Platforms>AnyCPU</Platforms>
-        <Version>0.0.1</Version>
+        <Version>0.0.2</Version>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
@@ -20,18 +20,6 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
         <None Include="README.md" Pack="true" PackagePath="\"/>
-        <None Remove="obj\Release\**" />
-        <None Remove="obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="obj\Release\**" />
-      <Compile Remove="obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="obj\Release\**" />
-      <EmbeddedResource Remove="obj\**" />
     </ItemGroup>
 
 </Project>
