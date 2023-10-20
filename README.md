@@ -91,7 +91,7 @@ private static void BotLogOnHandler(BotLogger.Levels levels, string content)
 
 ###### 订阅消息
 
-```
+```c#
 bot.Invoker.OnGroupMessageReceived += InvokerOnOnGroupMessageReceived;
     
 private static void InvokerOnOnGroupMessageReceived(MessageEventArgs e)

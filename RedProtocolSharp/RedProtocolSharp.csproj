@@ -6,10 +6,10 @@
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>RedProtocolSharp</Title>
-        <Authors>Lilyltt</Authors>
-        <RepositoryUrl>https://github.com/Lilyltt/RedProtocolSharp</RepositoryUrl>
+        <Authors>KusaGumina</Authors>
+        <RepositoryUrl>https://github.com/KusaGumina/RedProtocolSharp</RepositoryUrl>
         <RepositoryType>GitHub</RepositoryType>
-        <PackageReleaseNotes>初代版本</PackageReleaseNotes>
+        <PackageReleaseNotes>新增撤回,完善发送消息的返回,修复Bug</PackageReleaseNotes>
         <Configurations>Release</Configurations>
         <Platforms>AnyCPU</Platforms>
         <Version>0.0.2</Version>

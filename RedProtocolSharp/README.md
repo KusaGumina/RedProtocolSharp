@@ -1,8 +1,8 @@
 # RedProtocolSharp
 
---基于RedProtocol的C# SDK,应用于ChronoCat
+--基于RedProtocol的C# SDK,应用于某猫
 
-## 警告:当前Red与RedProtocolSharp均处于开发阶段,未来结构可能产生较大变化,请做好随时变更代码的准备
+## 警告:当前RedProtocol与RedProtocolSharp均处于开发阶段,未来结构可能产生较大变化,请做好随时变更代码的准备
 
 ### 介绍
 
@@ -38,7 +38,7 @@ RedProtocolSharp将RedProtocol基础的消息格式进行了封装,并将收到�
 
 - [ ] 发送语音消息
 
-- [ ] 撤回消息
+- [x] 撤回消息
 
   ---
   
@@ -58,7 +58,6 @@ RedProtocolSharp将RedProtocol基础的消息格式进行了封装,并将收到�
 
 ### 已知问题/feature
 
-1. 发送者解析不包含用户权限信息
 1. GetMemberList返回空数组(打开UI可能可以解决问题)
 
 ### 安装
@@ -71,6 +70,8 @@ Nuget搜索RedProtocolSharp安装
 
 ### 示例
 
+#### 可去Sample查看基础用法,下面的内容可能并不会及时更新
+
 ###### 启动Bot
 
 ```c#
@@ -78,41 +79,51 @@ var bot = new Bot("localhost:16530","yourToken");
 bot.Start();
 ```
 
-###### 注册Logger,MessageReceive订阅
+###### 注册Logger
 
 ```c#
 bot.Logger.BotLog.OnLogger += BotLogOnHandler;
-bot.MessageReceive.OnMessageReceived += MessageReceiveOnHandler;
-
-private static void MessageReceiveOnHandler(MsgType.Payload payload)
-{
-}
-
 private static void BotLogOnHandler(BotLogger.Levels levels, string content)
 {
     Console.WriteLine($"{levels} : {content}");
 }
 ```
 
-###### 提取消息内容
+###### 订阅消息
 
 ```c#
-if (payload is MsgType.Payload<MsgType.MessageRecv> data)
+bot.Invoker.OnGroupMessageReceived += InvokerOnOnGroupMessageReceived;
+    
+private static void InvokerOnOnGroupMessageReceived(MessageEventArgs e)
 {
-    string text = data.GetMsgText();
+    Console.WriteLine(e.chain.GroupUin);
+    foreach (var item in e.chain)
+    {
+        if (item is TextElement textElement)
+        {
+            Console.WriteLine(textElement.content);
+        }
+    }
 }
 ```
 
 ###### 发送消息
 
 ```c#
-bool statue = await bot.Send
-    .SetTarget("114514", BotSend.ChatType.Group)
-    .AddAt("1919810")
-    .AddText("123")
-    .AddPic(@"D:\pic.jpg")
-    .SendMessage();
-//向群114514发送内容为123,艾特用户1919810,附带图片pic.jpg的消息
+var reply = await bot.Send
+        .SetTarget("1919810", ChatTypes.GroupMessage)
+        .AddText("testMessage")
+        .AddAt("114514")
+        .AddPic("test.png")
+        .SendMessage();
+//向群1919810发送内容为testMessage,艾特用户114514,附带图片test.png的消息
+```
+
+###### 撤回消息
+
+```c#
+//假设上一步发送返回了reply
+await bot.Action.Revoke(new []{reply.msgId}, reply.chatTypes, reply.peerUin);
 ```
 
 ###### 获取Bot自身信息
