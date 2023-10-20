@@ -2,18 +2,13 @@
 
 public class MessageChain : List<IMessageElement>
 {
-    public enum Message
-    {
-        PrivateMessage = 1,
-        GroupMessage = 2
-    }
     public enum Role
     {
         Member = 2,
         Admin = 3,
         Owner = 4
     }
-    public Message MessageType { get; set; }
+    public ChatTypes chatTypes { get; set; }
     public string SenderUin { get; set; } = "";
     public string SenderName { get; set; } = "";
     public string GroupUin { get; set; } = "";

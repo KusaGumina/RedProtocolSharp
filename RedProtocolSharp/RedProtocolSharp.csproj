@@ -14,6 +14,7 @@
         <Platforms>AnyCPU</Platforms>
         <Version>0.0.2</Version>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseUrl>https://www.gnu.org/licenses/agpl-3.0.en.html#license-text</PackageLicenseUrl>
     </PropertyGroup>
 
     <ItemGroup>

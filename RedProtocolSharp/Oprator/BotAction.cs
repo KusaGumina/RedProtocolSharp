@@ -1,4 +1,8 @@
-﻿namespace RedProtocolSharp.Oprator;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RedProtocolSharp.Message;
+
+namespace RedProtocolSharp.Oprator;
 
 public class BotAction
 {
@@ -8,6 +12,7 @@ public class BotAction
     {
         bot = sender;
     }
+
     public async Task<string> MuteEveryOne(string groupUin, bool enablement)
     {
         var content = $"{{\n    \"group\": {groupUin},\n    \"enable\": {enablement}\n}}";
@@ -34,4 +39,25 @@ public class BotAction
     }
 
     //禁言指定人
+    public async Task<string> Revoke(string[] msgIds, ChatTypes chatTypes, string peerUin)
+    {
+        RevokeRequest payload = new RevokeRequest()
+        {
+            msgIds = msgIds,
+            peer = new MsgType.Peer()
+            {
+                chatType = (int)chatTypes,
+                peerUin = peerUin
+            }
+        };
+        var content = JsonConvert.SerializeObject(payload);
+        var reply = await bot.httpPostRequest(content, "message/recall");
+        return reply;
+    }
+    //撤回
+    private class RevokeRequest
+    {
+        internal string[] msgIds { get; set; }
+        internal MsgType.Peer peer { get; set; }
+    }
 }

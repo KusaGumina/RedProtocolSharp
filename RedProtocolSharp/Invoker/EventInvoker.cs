@@ -29,7 +29,7 @@ public class GroupMemberAddEventArgs : EventArgs
         this.bot = bot;
     }
 }
-public class Events
+public class Events : IDisposable
 {
     internal Bot bot;
     public Events(Bot bot)
@@ -45,7 +45,7 @@ public class Events
         if(senderInfo.ChatType != 2) return false;
         MessageChain chain = new MessageChain()
         {
-            MessageType = MessageChain.Message.GroupMessage,
+            chatTypes = ChatTypes.GroupMessage,
             MsgId = senderInfo.MsgId,
             MsgSeq = senderInfo.ReplayMsgSeq,
             Time = senderInfo.Time,
@@ -85,7 +85,7 @@ public class Events
         if(senderInfo.ChatType != 1) return false;
         MessageChain chain = new MessageChain()
         {
-            MessageType = MessageChain.Message.PrivateMessage,
+            chatTypes = ChatTypes.PrivateMessage,
             MsgId = senderInfo.MsgId,
             MsgSeq = senderInfo.ReplayMsgSeq,
             Time = senderInfo.Time,
@@ -135,5 +135,10 @@ public class Events
         GroupMemberAddEventArgs eventArgs = new GroupMemberAddEventArgs(originPayload, memberAddMessage, bot);
         OnGroupMemberAdd?.Invoke(eventArgs);
         return true;
+    }
+
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
     }
 }

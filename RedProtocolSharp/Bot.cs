@@ -8,7 +8,7 @@ using MessageEventArgs = WebSocketSharp.MessageEventArgs;
 
 namespace RedProtocolSharp;
 
-public class Bot
+public class Bot : IDisposable
 {
     public Bot(string url,string authorizationToken)
     {
@@ -246,4 +246,10 @@ public class Bot
         Logger.Info(@$"收到私聊消息:{e.chain.ToSummary()}");
     }
     #endregion
+
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
+        Invoker.Dispose();
+    }
 }

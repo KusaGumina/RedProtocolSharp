@@ -1,9 +1,28 @@
 ﻿using Newtonsoft.Json;
+using RedProtocolSharp.Message;
 
 namespace RedProtocolSharp;
 
   public class BotSend
     {
+        #region Echo
+        public class SendEcho
+        {
+            public int? chatType { get; set; }
+            public string? msgId { get; set; }
+            public string? msgSeq { get; set; }
+            public string? msgTime { get; set; }
+            public string? senderUin { get; set; }
+            public string? sendMemberName { get; set; }
+            public string? sendNickName { get; set; }
+            public string? peerUin { get; set; }
+            public string? peerName { get; set; }
+            [JsonIgnore]
+            public ChatTypes chatTypes { get; set; }
+        }
+        #endregion
+
+        #region SendHelper
         internal abstract class SendMsgHelper
         {
         }
@@ -25,12 +44,9 @@ namespace RedProtocolSharp;
         {
             public string filePath { get; set; }
         }
+        #endregion
 
-        public enum ChatType
-        {
-            Group,
-            Private
-        }
+
         private string sendNode = "message/send";
         private int chatType;
         private string sendTarget;
@@ -41,12 +57,12 @@ namespace RedProtocolSharp;
         }
         private List<SendMsgHelper> helper = new ();
 
-        public BotSend SetTarget(string target, ChatType chatTypes)
+        public BotSend SetTarget(string target, ChatTypes chatTypes)
         {
             chatType = chatTypes switch
             {
-                ChatType.Group => 2,
-                ChatType.Private => 1,
+                ChatTypes.GroupMessage => 2,
+                ChatTypes.PrivateMessage => 1,
                 _ => 0
             };
             sendTarget = target;
@@ -86,7 +102,7 @@ namespace RedProtocolSharp;
             });
             return this;
         }
-        public async Task<bool> SendMessage()
+        public async Task<SendEcho> SendMessage()
         {
             var payload = new MsgType.MessageSend()
             {
@@ -156,7 +172,7 @@ namespace RedProtocolSharp;
                         if (uploadReply != "")
                             picReply = JsonConvert.DeserializeObject<MsgType.UploadPic>(uploadReply);
                         else
-                            return false;
+                            return null;
                         payload.elements.Add(new MsgType.Elements
                         {
                             elementType = 2,
@@ -175,10 +191,16 @@ namespace RedProtocolSharp;
                 }
             var package = JsonConvert.SerializeObject(payload);
             var reply = await bot.httpPostRequest(package, sendNode);
-            if (reply != "")
+            var echo = JsonConvert.DeserializeObject<SendEcho>(reply);
+            if (echo != null)
             {
-                return true;
+                echo.chatTypes = echo.chatType switch
+                {
+                    1 => ChatTypes.PrivateMessage,
+                    2 => ChatTypes.GroupMessage,
+                    _ => echo.chatTypes
+                };
             }
-            return false;
+            return echo;
         }
     }
