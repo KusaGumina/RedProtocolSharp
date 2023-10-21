@@ -36,7 +36,7 @@ RedProtocolSharp将RedProtocol基础的消息格式进行了封装,并将收到�
 
 - [ ] 发送合并转发消息
 
-- [ ] 发送语音消息
+- [ ] 发送语音消息 注意!语音消息需要安装ffmpeg
 
 - [x] 撤回消息
 
@@ -117,6 +117,26 @@ var reply = await bot.Send
         .AddPic("test.png")
         .SendMessage();
 //向群1919810发送内容为testMessage,艾特用户114514,附带图片test.png的消息
+//Extra
+var chain = new MessageChain()
+{
+    PeerUin = "1919810",
+    chatTypes = ChatTypes.GroupMessage
+};
+chain.Add(new TextElement()
+{
+    content = "text"
+});
+chain.Add(new AtElement()
+{
+    target = "114514"
+});
+chain.Add(new ImageElement()
+{
+    sourcePath = "test.png"
+});
+await bot.Send.SendMessage(chain);
+//该方法等效于上面的链式调用方法
 ```
 
 ###### 撤回消息

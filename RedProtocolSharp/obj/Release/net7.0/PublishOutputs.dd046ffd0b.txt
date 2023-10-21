@@ -1,5 +1,12 @@
+D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\SilkRsDll.dll
 D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\RedProtocolSharp.dll
 D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\RedProtocolSharp.deps.json
 D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\RedProtocolSharp.pdb
+D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\NAudio.dll
+D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\NAudio.Asio.dll
+D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\NAudio.Core.dll
+D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\NAudio.Midi.dll
+D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\NAudio.Wasapi.dll
+D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\NAudio.WinMM.dll
 D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\Newtonsoft.Json.dll
 D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\publish\websocket-sharp.dll

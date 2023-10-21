@@ -22,3 +22,4 @@ D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\RedProtocolSharp.deps.js
 D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\RedProtocolSharp.dll
 D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\RedProtocolSharp.pdb
 D:\RedProtocolSharp\RedProtocolSharp\obj\Release\net7.0\ref\RedProtocolSharp.dll
+D:\RedProtocolSharp\RedProtocolSharp\bin\Release\net7.0\SilkRsDll.dll

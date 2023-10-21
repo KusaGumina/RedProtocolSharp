@@ -21,6 +21,9 @@ public class Bot : IDisposable
         Get = new BotGet(this);
         Action = new BotAction(this);
         Invoker = new Events(this);
+        //cache文件夹初始化
+        string cachePath = AppDomain.CurrentDomain.BaseDirectory + @"Cache\RedProtocolSharp";
+        Directory.CreateDirectory(cachePath);
     }
     public BotLogger Logger = new ();
     public BotSend Send;

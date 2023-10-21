@@ -36,87 +36,10 @@ public class MsgType
             return messageInfo;
         }
         //获取消息相关信息
-        public string GetMsgText()
-        {
-            var allContent = "";
-            var nextChange = false;
-            if (payload is List<MessageRecv> data)
-            {
-                foreach (var item in data[0].elements)
-                {
-                    if (item.elementType == 1)
-                    {
-                        if (item.textElement.atType == 0)
-                        {
-                            if (nextChange)
-                            {
-                                allContent += item.textElement.content.TrimStart();
-                                nextChange = false;
-                            }
-                            else
-                            {
-                                allContent += item.textElement.content;
-                            }
-                        }
-                        else
-                        {
-                            nextChange = true;
-                        }
-                    }
-                }
-            }
-            return allContent;
-        }
-        //获取消息所含所有文字,无文字则返回空字符串
-        public List<PicMD5Dir> GetMsgPic()
-        {
-            var picList = new List<PicMD5Dir>();
-            if (payload is List<MessageRecv> data)
-            {
-                foreach (var item in data[0].elements)
-                {
-                    if (item.elementType == 2)
-                    {
-                        picList.Add(new PicMD5Dir()
-                        {
-                            MD5 = item.picElement.md5HexStr,
-                            Dir = item.picElement.sourcePath
-                        });
-                    }
-                }
-            }
-            return picList;
-        }
-        //获取消息所含图片(支持多张)
-        public List<string> GetAtTargets()
-        {
-            List<string> targets = new List<string>();
-            if (payload is List<MessageRecv> data)
-            {
-                foreach (var item in data[0].elements)
-                {
-                    if (item.elementType == 1)
-                    {
-                        if (item.textElement.atType == 2)
-                        {
-                            targets.Add(item.textElement.atNtUin);
-                        }
-                    }
-                }
-            }
-            return targets;
-        }
-        //获取At的对象(支持多个对象)
     }
     #endregion
 
     #region Helper
-
-    public class PicMD5Dir
-    {
-        public string? MD5 { get; set; }
-        public string? Dir { get; set; }
-    }
     public class MessageInfo
     {
         public string? Uin { get; set; }
@@ -129,7 +52,6 @@ public class MsgType
         public string? MsgId { get; set; }
         public int? RoleType { get; set; }
     }
-
     #endregion
     
     #region connect
@@ -326,6 +248,8 @@ public class MsgType
         public string? filePath { get; set; }
         public string? md5HexStr { get; set; }
         public string? fileSize { get; set; }
+        public int duration { get; set; }
+        public int[] waveAmplitudes { get; set; }
     }
     public class MultiForwardMsgElement
     {
@@ -393,17 +317,17 @@ public class MsgType
 
     #region messageSend
 
-    public class MessageSend
+    internal class MessageSend
     {
         public Peer peer { get; set; }
         public List<Elements> elements { get; set; }
     }
-    public class Peer
+    internal class Peer
     {
         public int chatType { get; set; }//1为私聊2为群聊
         public string peerUin { get; set; }
     }
-    public class UnsafeMessageSendForwardPayload
+    internal class UnsafeMessageSendForwardPayload
     { 
         public MsgInfos? msgInfos { get; set; }
         public Elements? msgElements { get; set; }
@@ -411,7 +335,7 @@ public class MsgType
         public string srcContact { get; set; }
         public string dstContact { get; set; }
     }
-    public class MsgInfos
+    internal class MsgInfos
     {
         public string msgId { get; set; }
         public string snederShowName { get; set; }
@@ -494,7 +418,7 @@ public class MsgType
 
     #region upload
     
-    public class UploadPic
+    internal class UploadData
     {
         public string? md5 { get; set; }
         public string? fileSize { get; set; }
@@ -502,7 +426,7 @@ public class MsgType
         public string? ntFilePath { get; set; }
         public ImageInfo imageInfo { get; set; }
     }
-    public class ImageInfo
+    internal class ImageInfo
     {
         public int? width { get; set; }
         public int? height { get; set; }

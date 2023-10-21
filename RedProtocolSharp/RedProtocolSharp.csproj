@@ -9,18 +9,22 @@
         <Authors>KusaGumina</Authors>
         <RepositoryUrl>https://github.com/KusaGumina/RedProtocolSharp</RepositoryUrl>
         <RepositoryType>GitHub</RepositoryType>
-        <PackageReleaseNotes>修改主方法为异步,修改私聊时GroupUin为SenderUin</PackageReleaseNotes>
+        <PackageReleaseNotes>添加功能发送语音,GroupUin修改为PeerUin,修改代码逻辑,修复Bug</PackageReleaseNotes>
         <Configurations>Release</Configurations>
         <Platforms>AnyCPU</Platforms>
-        <Version>0.0.3</Version>
+        <Version>0.0.4</Version>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseUrl>https://www.gnu.org/licenses/agpl-3.0.en.html#license-text</PackageLicenseUrl>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="NAudio" Version="2.2.1" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
         <None Include="README.md" Pack="true" PackagePath="\"/>
+        <None Update="SilkRsDll.dll">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

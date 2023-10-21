@@ -51,7 +51,7 @@ public class Events : IDisposable
             Time = senderInfo.Time,
             SenderUin = senderInfo.Uin,
             SenderName = senderInfo.SenderName,
-            GroupUin = senderInfo.PeerUin,
+            PeerUin = senderInfo.PeerUin,
             GroupName = senderInfo.PeerName,
         };
         switch (senderInfo.RoleType)
@@ -90,7 +90,7 @@ public class Events : IDisposable
             MsgSeq = senderInfo.ReplayMsgSeq,
             Time = senderInfo.Time,
             SenderUin = senderInfo.Uin,
-            GroupUin = senderInfo.Uin
+            PeerUin = senderInfo.Uin
         };
         chain.Parse(originPayload);
         if (chain.Count == 0)

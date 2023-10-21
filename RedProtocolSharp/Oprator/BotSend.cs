@@ -1,60 +1,45 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+using RedProtocolSharp.Convert;
+using RedProtocolSharp.Message;
 
 namespace RedProtocolSharp.Oprator;
 
   public class BotSend
     {
-        internal abstract class SendMsgHelper
+        #region Echo
+        public class SendEcho
         {
+            public int? chatType { get; set; }
+            public string? msgId { get; set; }
+            public string? msgSeq { get; set; }
+            public string? msgTime { get; set; }
+            public string? senderUin { get; set; }
+            public string? sendMemberName { get; set; }
+            public string? sendNickName { get; set; }
+            public string? peerUin { get; set; }
+            public string? peerName { get; set; }
+            [JsonIgnore]
+            public ChatTypes chatTypes { get; set; }
         }
-        internal class atHelper : SendMsgHelper
-        {
-            public string atTarget { get; set; }
-        }
-        internal class replyHelper : SendMsgHelper
-        {
-            public string replayMsgSeq { get; set; }
-            public string replyMsgId { get; set; }
-            public string senderUin { get; set; }
-        }
-        internal class textHelper : SendMsgHelper
-        {
-            public string content { get; set; }
-        }
-        internal class picHelper : SendMsgHelper
-        {
-            public string filePath { get; set; }
-        }
-
-        public enum ChatType
-        {
-            Group,
-            Private
-        }
-        private string sendNode = "message/send";
-        private int chatType;
-        private string sendTarget;
+        #endregion
+        
         private Bot bot;
+        private string sendNode = "message/send";
+        
         public BotSend(Bot sender)
         {
             bot = sender;
         }
-        private List<SendMsgHelper> helper = new ();
-
-        public BotSend SetTarget(string target, ChatType chatTypes)
+        private MessageChain _chain = new MessageChain();
+        public BotSend SetTarget(string target, ChatTypes chatTypes)
         {
-            chatType = chatTypes switch
-            {
-                ChatType.Group => 2,
-                ChatType.Private => 1,
-                _ => 0
-            };
-            sendTarget = target;
+            _chain.PeerUin = target;
+            _chain.chatTypes = chatTypes;
             return this;
         }
         public BotSend AddText(string content)
         {
-            helper.Add(new textHelper()
+            _chain.Add(new TextElement()
             {
                 content = content
             });
@@ -62,124 +47,194 @@ namespace RedProtocolSharp.Oprator;
         }
         public BotSend AddAt(string target)
         {
-            helper.Add(new atHelper()
+            _chain.Add(new AtElement()
             {
-                atTarget = target
+                target = target
             });
             return this;
         }
-        public BotSend AddReply(string replayMsgSeq,string replyMsgId,string senderUin)
+        public BotSend AddReply(string replayMsgSeq,string replyMsgId,string targetUin)
         {
-            helper.Add(new replyHelper()
+            _chain.Add(new ReplyElement()
             {
-                replayMsgSeq = replayMsgSeq,
-                replyMsgId = replyMsgId,
-                senderUin = senderUin
+                replyMsgSeq = replayMsgSeq,
+                replyTargetUin = targetUin
             });
             return this;
         }
         public BotSend AddPic(string filePath)
         {
-            helper.Add(new picHelper()
+            _chain.Add(new ImageElement()
             {
-                filePath = filePath
+                sourcePath = filePath
             });
             return this;
         }
-        public async Task<bool> SendMessage()
+
+        public BotSend AddVoice(string filePath)
         {
-            var payload = new MsgType.MessageSend()
+            try
             {
-                elements = new List<MsgType.Elements>(),
-                peer = new MsgType.Peer()
+                var voiceInfo = VoiceConverter.Mp3ToSilk(filePath);
+                if (voiceInfo != null)
                 {
-                    chatType = chatType,
-                    peerUin = sendTarget
+                    _chain.Add(new VoiceElement()
+                    {
+                        filePath = voiceInfo.filePath,
+                        name = voiceInfo.name,
+                        duration = voiceInfo.duration
+                    });
                 }
-            };
-            foreach (var item in helper)
-                switch (item)
-                {
-                    case atHelper data:
-                    {
-                        payload.elements.Add(new MsgType.Elements
-                        {
-                            elementType = 1,
-                            textElement = new MsgType.TextElement
-                            {
-                                atType = 2,
-                                atNtUin = data.atTarget
-                            }
-                        });
-                        payload.elements.Add(new MsgType.Elements
-                        {
-                            elementType = 1,
-                            textElement = new MsgType.TextElement
-                            {
-                                content = " "
-                            }
-                        });
-                        break;
-                    }
-                    case replyHelper data:
-                    {
-                        var sendUinInt = long.Parse(data.senderUin);
-                        payload.elements.Add(new MsgType.Elements
-                        {
-                            elementType = 7,
-                            replyElement = new MsgType.ReplyElement
-                            {
-                                replayMsgSeq = data.replayMsgSeq,
-                                replyMsgId = data.replyMsgId,
-                                senderUinStr = data.senderUin
-                            }
-                        });
-                        break;
-                    }
-                    case textHelper data:
-                    {
-                        payload.elements.Add(new MsgType.Elements
-                        {
-                            elementType = 1,
-                            textElement = new MsgType.TextElement
-                            {
-                                content = data.content
-                            }
-                        });
-                        break;
-                    }
-                    case picHelper data:
-                    {
-                        var uploadNode = "upload";
-                        var fileName = Path.GetFileName(data.filePath);
-                        var uploadReply = await bot.httpPostUpload(data.filePath, uploadNode);
-                        var picReply = new MsgType.UploadPic();
-                        if (uploadReply != "")
-                            picReply = JsonConvert.DeserializeObject<MsgType.UploadPic>(uploadReply);
-                        else
-                            return false;
-                        payload.elements.Add(new MsgType.Elements
-                        {
-                            elementType = 2,
-                            picElement = new MsgType.PicElement
-                            {
-                                md5HexStr = picReply.md5,
-                                fileSize = picReply.fileSize,
-                                fileName = fileName,
-                                sourcePath = picReply.ntFilePath,
-                                picHeight = picReply.imageInfo.height,
-                                picWidth = picReply.imageInfo.width
-                            }
-                        });
-                        break;
-                    }
-                }
-            var package = JsonConvert.SerializeObject(payload);
-            var reply = await bot.httpPostRequest(package, sendNode);
-            if (reply != "")
-            {
-                return true;
             }
-            return false;
+            catch (Exception e)
+            {
+                return this;
+            }
+            return this;
+        }
+        public async Task<SendEcho> SendMessage()
+        {
+            try
+            {
+                var payload = new MsgType.MessageSend()
+                {
+                    elements = new List<MsgType.Elements>(),
+                    peer = new MsgType.Peer()
+                    {
+                        chatType = _chain.chatTypes switch
+                        {
+                            ChatTypes.GroupMessage => 2,
+                            ChatTypes.PrivateMessage => 1,
+                            _ => 0
+                        },
+                        peerUin = _chain.PeerUin
+                    }
+                };
+                foreach (var item in _chain)
+                    switch (item)
+                    {
+                        case AtElement data:
+                        {
+                            payload.elements.Add(new MsgType.Elements
+                            {
+                                elementType = 1,
+                                textElement = new MsgType.TextElement
+                                {
+                                    atType = 2,
+                                    atNtUin = data.target
+                                }
+                            });
+                            payload.elements.Add(new MsgType.Elements
+                            {
+                                elementType = 1,
+                                textElement = new MsgType.TextElement
+                                {
+                                    content = " "
+                                }
+                            });
+                            break;
+                        }
+                        case ReplyElement data:
+                        {
+                            payload.elements.Add(new MsgType.Elements
+                            {
+                                elementType = 7,
+                                replyElement = new MsgType.ReplyElement
+                                {
+                                    replayMsgSeq = data.replyMsgSeq,
+                                    senderUinStr = data.replyTargetUin
+                                }
+                            });
+                            break;
+                        }
+                        case TextElement data:
+                        {
+                            payload.elements.Add(new MsgType.Elements
+                            {
+                                elementType = 1,
+                                textElement = new MsgType.TextElement
+                                {
+                                    content = data.content
+                                }
+                            });
+                            break;
+                        }
+                        case ImageElement data:
+                        {
+                            var uploadNode = "upload";
+                            var fileName = Path.GetFileName(data.sourcePath);
+                            var uploadReply = await bot.httpPostUpload(data.sourcePath, uploadNode);
+                            var picReply = new MsgType.UploadData();
+                            if (uploadReply != "")
+                                picReply = JsonConvert.DeserializeObject<MsgType.UploadData>(uploadReply);
+                            else
+                                return null;
+                            payload.elements.Add(new MsgType.Elements
+                            {
+                                elementType = 2,
+                                picElement = new MsgType.PicElement
+                                {
+                                    md5HexStr = picReply.md5,
+                                    fileSize = picReply.fileSize,
+                                    fileName = fileName,
+                                    sourcePath = picReply.ntFilePath,
+                                    picHeight = picReply.imageInfo.height,
+                                    picWidth = picReply.imageInfo.width
+                                }
+                            });
+                            break;
+                        }
+                        case VoiceElement data:
+                        {
+                            var uploadNode = "upload";
+                            var uploadReply = await bot.httpPostUpload(data.filePath, uploadNode);
+                            var voiceReply = new MsgType.UploadData();
+                            if (uploadReply != "")
+                                voiceReply = JsonConvert.DeserializeObject<MsgType.UploadData>(uploadReply);
+                            else
+                                return null;
+                            if (voiceReply == null) return null;
+                            payload.elements.Add(new MsgType.Elements
+                            {
+                                elementType = 4,
+                                pttElement = new MsgType.PttElement()
+                                {
+                                    md5HexStr = voiceReply.md5,
+                                    duration = data.duration,
+                                    fileName = Path.GetFileName(voiceReply.ntFilePath),
+                                    filePath = voiceReply.ntFilePath,
+                                    fileSize = voiceReply.fileSize,
+                                    waveAmplitudes = new []{0,1,3,3,1,0}
+                                }
+                            });
+                            break;
+                        }
+                    }
+
+                var package = JsonConvert.SerializeObject(payload);
+                var reply = await bot.httpPostRequest(package, sendNode);
+                var echo = JsonConvert.DeserializeObject<SendEcho>(reply);
+                if (echo != null)
+                {
+                    echo.chatTypes = echo.chatType switch
+                    {
+                        1 => ChatTypes.PrivateMessage,
+                        2 => ChatTypes.GroupMessage,
+                        _ => echo.chatTypes
+                    };
+                }
+
+                return echo;
+            }
+            finally
+            {
+                _chain = new MessageChain();
+            }
+        }
+
+        public async Task<SendEcho> SendMessage(MessageChain chain)
+        {
+            _chain = chain;
+            return await SendMessage();
         }
     }

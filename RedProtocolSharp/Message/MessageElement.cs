@@ -35,12 +35,14 @@ public class ImageElement : IMessageElement
     }
 }
 
-public class VoicdElement : IMessageElement
+public class VoiceElement : IMessageElement
 {
     public string md5 { get; set; } = "";
     public string name { get; set; } = "";
     public string filePath { get; set; } = "";
     public string size { get; set; } = "";
+    public int duration { get; set; }
+    public int[]? waveAmplitudes { get; set; }
     public string ToSummary()
     {
         return $@"[Message:Voice,Name=""{name}""]";

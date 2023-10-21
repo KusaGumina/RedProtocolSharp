@@ -11,7 +11,7 @@ public class MessageChain : List<IMessageElement>
     public ChatTypes chatTypes { get; set; }
     public string SenderUin { get; set; } = "";
     public string SenderName { get; set; } = "";
-    public string GroupUin { get; set; } = "";
+    public string PeerUin { get; set; } = "";
     public string GroupName { get; set; } = "";
     public Role? RoleType { get; set; }
     public DateTime Time { get; set; }
@@ -54,13 +54,13 @@ public class MessageChain : List<IMessageElement>
                     break;
                 //语音
                 case 4:
-                    Add(new VoicdElement()
+                    Add(new VoiceElement()
                     {
                         md5 = item.pttElement.md5HexStr,
                         name = item.pttElement.fileName,
                         filePath = item.pttElement.filePath,
-                        size = item.pttElement.fileSize
-                        
+                        size = item.pttElement.fileSize,
+                        duration = item.pttElement.duration
                     });
                     break;
                 //回复
@@ -85,7 +85,7 @@ public class MessageChain : List<IMessageElement>
 
     public string ToSummary()
     {
-        string summary = $"[From{GroupName}({GroupUin}) {SenderName}({SenderUin}):";
+        string summary = $"[From{GroupName}({PeerUin}) {SenderName}({SenderUin}):";
         foreach (var item in this)
         {
             summary += item.ToSummary();

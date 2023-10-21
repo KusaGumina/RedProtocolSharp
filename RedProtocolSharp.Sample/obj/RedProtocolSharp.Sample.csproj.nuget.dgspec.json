@@ -47,6 +47,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "NAudio": {
+              "target": "Package",
+              "version": "[2.2.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -68,7 +74,7 @@
       }
     },
     "D:\\RedProtocolSharp\\RedProtocolSharp\\RedProtocolSharp.csproj": {
-      "version": "0.0.2",
+      "version": "0.0.3",
       "restore": {
         "projectUniqueName": "D:\\RedProtocolSharp\\RedProtocolSharp\\RedProtocolSharp.csproj",
         "projectName": "RedProtocolSharp",
@@ -107,6 +113,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "NAudio": {
+              "target": "Package",
+              "version": "[2.2.1, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"

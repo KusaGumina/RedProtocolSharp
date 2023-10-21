@@ -15,13 +15,8 @@ public class Sample
         bot.Invoker.OnGroupMessageReceived += InvokerOnOnGroupMessageReceived;
         bot.Invoker.OnPrivateMessageReceived += InvokerOnOnPrivateMessageReceived;
         bot.Invoker.OnGroupMemberAdd += InvokerOnOnGroupMemberAdd;
-        bot.Start();
-        var reply = await
-            bot.Send
-                .SetTarget("761889645", ChatTypes.GroupMessage)
-                .AddText("testMessage")
-                .AddAt("1806552019")
-                .SendMessage();
+        await bot.Start();
+        await bot.Send.SetTarget("114514", ChatTypes.GroupMessage).AddVoice("D:\\silk\\114514.mp3").SendMessage();
         while (true)
         {
         }
@@ -39,7 +34,7 @@ public class Sample
 
     private static void InvokerOnOnGroupMessageReceived(MessageEventArgs e)
     {
-        Console.WriteLine(e.chain.GroupUin);
+        Console.WriteLine(e.chain.PeerUin);
         foreach (var item in e.chain)
         {
             if (item is TextElement textElement)
@@ -51,6 +46,6 @@ public class Sample
 
     private static void BotLogOnHandler(BotLogger.Levels levels, string content)
     {
-        Console.WriteLine($"{levels} : {content}");
+        //Console.WriteLine($"{levels} : {content}");
     }
 }
