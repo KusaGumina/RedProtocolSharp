@@ -27,7 +27,7 @@ public class Bot : IDisposable
     public BotGet Get;
     public BotAction Action;
     public Events Invoker;
-    public async void Start()
+    public async Task Start()
     {
 
         //连接

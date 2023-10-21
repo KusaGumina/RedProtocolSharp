@@ -89,7 +89,8 @@ public class Events : IDisposable
             MsgId = senderInfo.MsgId,
             MsgSeq = senderInfo.ReplayMsgSeq,
             Time = senderInfo.Time,
-            SenderUin = senderInfo.Uin
+            SenderUin = senderInfo.Uin,
+            GroupUin = senderInfo.Uin
         };
         chain.Parse(originPayload);
         if (chain.Count == 0)

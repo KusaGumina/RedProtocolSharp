@@ -9,10 +9,10 @@
         <Authors>KusaGumina</Authors>
         <RepositoryUrl>https://github.com/KusaGumina/RedProtocolSharp</RepositoryUrl>
         <RepositoryType>GitHub</RepositoryType>
-        <PackageReleaseNotes>新增撤回,完善发送消息的返回,修复Bug</PackageReleaseNotes>
+        <PackageReleaseNotes>修改主方法为异步,修改私聊时GroupUin为SenderUin</PackageReleaseNotes>
         <Configurations>Release</Configurations>
         <Platforms>AnyCPU</Platforms>
-        <Version>0.0.2</Version>
+        <Version>0.0.3</Version>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseUrl>https://www.gnu.org/licenses/agpl-3.0.en.html#license-text</PackageLicenseUrl>
     </PropertyGroup>
