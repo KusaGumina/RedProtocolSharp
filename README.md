@@ -36,7 +36,7 @@ RedProtocolSharp将RedProtocol基础的消息格式进行了封装,并将收到�
 
 - [ ] 发送合并转发消息
 
-- [ ] 发送语音消息 注意!语音消息需要安装ffmpeg
+- [x] 发送语音消息 无需安装其他外置库,感谢[silk-rs](https://github.com/lz1998/silk-rs)提供的dll,语音仅支持mp3格式,直接填写fileName即可
 
 - [x] 撤回消息
 
