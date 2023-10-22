@@ -3,6 +3,7 @@
 --基于RedProtocol的C# SDK,应用于某猫
 
 ## 警告:当前RedProtocol与RedProtocolSharp均处于开发阶段,未来结构可能产生较大变化,请做好随时变更代码的准备
+**我们强烈建议您升级至0.1.0,该版本弃用了直接链式调用发送消息在高并发的情况下可能会导致消息元素重叠的Bug,并添加了对应的ChainBuilder作为新的消息发送方式**
 
 ### 介绍
 
@@ -34,9 +35,7 @@ RedProtocolSharp将RedProtocol基础的消息格式进行了封装,并将收到�
 
 - [x] 发送回复消息
 
-- [ ] 发送合并转发消息
-
-- [x] 发送语音消息 无需安装其他外置库,感谢[silk-rs](https://github.com/lz1998/silk-rs)提供的dll,语音仅支持mp3格式,直接填写fileName即可
+- [x] 发送语音消息 无需安装其他外置库,感谢[silk-rs](https://github.com/lz1998/silk-rs)提供的dll,语音仅支持mp3格式,直接填写filePath即可
 
 - [x] 撤回消息
 
@@ -59,6 +58,7 @@ RedProtocolSharp将RedProtocol基础的消息格式进行了封装,并将收到�
 ### 已知问题/feature
 
 1. GetMemberList返回空数组(打开UI可能可以解决问题)
+2. 现在不会,未来也不可能支持发送Json,xml等消息,也不可能支持主动添加群/好友
 
 ### 安装
 
@@ -66,7 +66,7 @@ Nuget搜索RedProtocolSharp安装
 
 或
 
-引入Release下的Dll,并自行安装WebSocketSharp,NewtonSoft.JSON相关依赖(不推荐)
+引入Release下的Dll,并自行安装WebSocketSharp,NewtonSoft.JSON,NAudio相关依赖(不推荐)
 
 ### 示例
 
@@ -96,7 +96,7 @@ bot.Invoker.OnGroupMessageReceived += InvokerOnOnGroupMessageReceived;
     
 private static void InvokerOnOnGroupMessageReceived(MessageEventArgs e)
 {
-    Console.WriteLine(e.chain.GroupUin);
+    Console.WriteLine(e.chain.PeerUin);
     foreach (var item in e.chain)
     {
         if (item is TextElement textElement)
@@ -109,34 +109,14 @@ private static void InvokerOnOnGroupMessageReceived(MessageEventArgs e)
 
 ###### 发送消息
 
+**原链式调用的方法已弃用!改为Builder创建chain发送消息!**
+
 ```c#
-var reply = await bot.Send
-        .SetTarget("1919810", ChatTypes.GroupMessage)
-        .AddText("testMessage")
-        .AddAt("114514")
-        .AddPic("test.png")
-        .SendMessage();
-//向群1919810发送内容为testMessage,艾特用户114514,附带图片test.png的消息
-//Extra
-var chain = new MessageChain()
-{
-    PeerUin = "1919810",
-    chatTypes = ChatTypes.GroupMessage
-};
-chain.Add(new TextElement()
-{
-    content = "text"
-});
-chain.Add(new AtElement()
-{
-    target = "114514"
-});
-chain.Add(new ImageElement()
-{
-    sourcePath = "test.png"
-});
-await bot.Send.SendMessage(chain);
-//该方法等效于上面的链式调用方法
+await bot.Send.SendMessageChain(new MessageBuilder()
+.SetTarget("114514", ChatTypes.GroupMessage)
+.AddText("test")
+.Build());
+//请使用Builder创建chain对象,不要也不能直接new MessageChain
 ```
 
 ###### 撤回消息
@@ -163,4 +143,4 @@ await bot.Action.Kick("114514", "1919810", false, "test");
 
 ### 案例
 
-LlisBot(尚在开发中,暂未提供)
+控制台项目RedProtocolSharp.Sample

@@ -2,6 +2,9 @@
 
 public class MessageChain : List<IMessageElement>
 {
+    internal MessageChain()
+    {
+    }
     public enum Role
     {
         Member = 2,
@@ -15,8 +18,8 @@ public class MessageChain : List<IMessageElement>
     public string GroupName { get; set; } = "";
     public Role? RoleType { get; set; }
     public DateTime Time { get; set; }
-    public string MsgSeq { get; set; }
-    public string MsgId { get; set; }
+    public string MsgSeq { get; set; } = "";
+    public string MsgId { get; set; } = "";
     internal void Parse(MsgType.Payload<MsgType.MessageRecv> originPayload)
     {
         foreach (var item in originPayload.payload.elements)
@@ -82,7 +85,6 @@ public class MessageChain : List<IMessageElement>
             }
         }
     }
-
     public string ToSummary()
     {
         string summary = $"[From{GroupName}({PeerUin}) {SenderName}({SenderUin}):";

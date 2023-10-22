@@ -16,7 +16,7 @@ public class Sample
         bot.Invoker.OnPrivateMessageReceived += InvokerOnOnPrivateMessageReceived;
         bot.Invoker.OnGroupMemberAdd += InvokerOnOnGroupMemberAdd;
         await bot.Start();
-        await bot.Send.SetTarget("114514", ChatTypes.GroupMessage).AddVoice("D:\\silk\\114514.mp3").SendMessage();
+        await bot.Send.SendMessageChain(new MessageBuilder().SetTarget("114514", ChatTypes.GroupMessage).AddText("test").Build());
         while (true)
         {
         }
