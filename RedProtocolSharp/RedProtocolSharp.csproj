@@ -9,10 +9,10 @@
         <Authors>KusaGumina</Authors>
         <RepositoryUrl>https://github.com/KusaGumina/RedProtocolSharp</RepositoryUrl>
         <RepositoryType>GitHub</RepositoryType>
-        <PackageReleaseNotes>修复直接链式调用发送消息在高并发的情况下可能会导致消息元素重叠的Bug</PackageReleaseNotes>
+        <PackageReleaseNotes>修复了图片URL链接不可用的问题</PackageReleaseNotes>
         <Configurations>Release</Configurations>
         <Platforms>AnyCPU</Platforms>
-        <Version>0.1.0</Version>
+        <Version>0.1.1</Version>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseUrl>https://www.gnu.org/licenses/agpl-3.0.en.html#license-text</PackageLicenseUrl>
     </PropertyGroup>

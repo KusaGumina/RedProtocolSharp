@@ -48,18 +48,18 @@ public class MessageChain : List<IMessageElement>
                 case 2:
                     Add(new ImageElement()
                     {
-                        md5 = item.picElement.md5HexStr,
+                        md5 = item.picElement.md5HexStr.ToUpper(),
                         name = item.picElement.fileName,
                         sourcePath = item.picElement.sourcePath,
                         size = item.picElement.fileSize,
-                        url = $@"https://gchat.qpic.cn/gchatpic_new/0/0-0-{item.picElement.md5HexStr}/0"
+                        url = $@"https://gchat.qpic.cn/gchatpic_new/0/0-0-{item.picElement.md5HexStr.ToUpper()}/0"
                     });
                     break;
                 //语音
                 case 4:
                     Add(new VoiceElement()
                     {
-                        md5 = item.pttElement.md5HexStr,
+                        md5 = item.pttElement.md5HexStr.ToUpper(),
                         name = item.pttElement.fileName,
                         filePath = item.pttElement.filePath,
                         size = item.pttElement.fileSize,
