@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\RedProtocolSharp\\RedProtocolSharp\\RedProtocolSharp.csproj": {
-      "version": "0.0.4",
+      "version": "0.1.0",
       "restore": {
         "projectUniqueName": "D:\\RedProtocolSharp\\RedProtocolSharp\\RedProtocolSharp.csproj",
         "projectName": "RedProtocolSharp",
