@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "RedProtocolSharp/0.1.1": {
+      "RedProtocolSharp/0.1.2": {
         "dependencies": {
           "NAudio": "2.2.1",
           "Newtonsoft.Json": "13.0.3",
@@ -118,7 +118,7 @@
     }
   },
   "libraries": {
-    "RedProtocolSharp/0.1.1": {
+    "RedProtocolSharp/0.1.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

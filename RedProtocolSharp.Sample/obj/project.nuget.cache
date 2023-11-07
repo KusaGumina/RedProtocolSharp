@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pCb8AHkjDe3bWcLouj4FmdSCmQg6Lv04coT5qYIvFVOeWEaXwWRiHRjHofcwNuK+Ar+v6SgfyGPhYSz+9Xfu7g==",
+  "dgSpecHash": "RTd2DkC8lE8yiI2Qaa2LLDNe9O/E94LPAoqh9NMOnuUlIiT5+Y5UQioOnqmM9S+SbbgvPO3zg3GIEf6jkUUPJQ==",
   "success": true,
   "projectFilePath": "D:\\RedProtocolSharp\\RedProtocolSharp.Sample\\RedProtocolSharp.Sample.csproj",
   "expectedPackageFiles": [
@@ -16,7 +16,7 @@
     "C:\\Users\\Administrator\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\websocketsharp\\1.0.3-rc11\\websocketsharp.1.0.3-rc11.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\redprotocolsharp\\0.1.0\\redprotocolsharp.0.1.0.nupkg.sha512"
+    "C:\\Users\\Administrator\\.nuget\\packages\\redprotocolsharp\\0.1.1\\redprotocolsharp.0.1.1.nupkg.sha512"
   ],
   "logs": [
     {

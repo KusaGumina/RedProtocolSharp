@@ -34,7 +34,7 @@ public sealed class MessageBuilder
         return this;
     }
 
-    public MessageBuilder AddReply(string replayMsgSeq, string replyMsgId, string targetUin)
+    public MessageBuilder AddReply(string replayMsgSeq, string targetUin)
     {
         _chain.Add(new ReplyElement
         {

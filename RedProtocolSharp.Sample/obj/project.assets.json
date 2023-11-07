@@ -205,7 +205,7 @@
           "lib/websocket-sharp.dll": {}
         }
       },
-      "RedProtocolSharp/0.1.0": {
+      "RedProtocolSharp/0.1.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
@@ -524,7 +524,7 @@
         "websocketsharp.nuspec"
       ]
     },
-    "RedProtocolSharp/0.1.0": {
+    "RedProtocolSharp/0.1.1": {
       "type": "project",
       "path": "../RedProtocolSharp/RedProtocolSharp.csproj",
       "msbuildProject": "../RedProtocolSharp/RedProtocolSharp.csproj"
@@ -533,7 +533,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "NAudio >= 2.2.1",
-      "RedProtocolSharp >= 0.1.0"
+      "RedProtocolSharp >= 0.1.1"
     ]
   },
   "packageFolders": {
